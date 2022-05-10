@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 dir;
     [SerializeField] private int speed;
     [SerializeField] private GameObject PanelLose;
+    [SerializeField] private int coins;
+    [SerializeField] private Text coinsCounter;
 
     private int lineToMove = 1;
     public float lineDistance = 3;
@@ -67,6 +70,16 @@ public class PlayerController : MonoBehaviour
             PanelLose.SetActive(true);
             Time.timeScale = 0;
         }
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Coin")
+        {
+            coins++;
+            coinsCounter.text = coins.ToString();
+            Destroy(other.gameObject);
+        } 
     }
 
 }
